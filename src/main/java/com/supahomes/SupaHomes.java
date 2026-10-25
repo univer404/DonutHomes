@@ -147,10 +147,6 @@ public final class SupaHomes extends JavaPlugin implements Listener {
                 inventory.setItem(deleteSlot, item(Material.RED_DYE, "<#FC0000>ɴᴏ ᴘᴇʀᴍɪꜱꜱɪᴏɴ", "<white>You need a higher rank for this home"));
             }
         }
-        if (getConfig().getBoolean("team-home.enabled", true)) {
-            inventory.setItem(10, item(Material.WHITE_BANNER, "<#00A4FC>ᴛᴇᴀᴍ ʜᴏᴍᴇ", "<white>Click to run the configured team-home command"));
-            inventory.setItem(19, item(Material.BLUE_DYE, "<#00A4FC>ᴛᴇᴀᴍ ʜᴏᴍᴇ", "<white>Click to run the configured team-home command"));
-        }
         player.openInventory(inventory);
     }
 
@@ -283,13 +279,6 @@ public final class SupaHomes extends JavaPlugin implements Listener {
             event.setCancelled(true);
             if (event.getClickedInventory() != event.getView().getTopInventory()) return;
             int slotIndex = event.getRawSlot();
-            if (slotIndex == 10 || slotIndex == 19) {
-                if (getConfig().getBoolean("team-home.enabled", true)) {
-                    player.closeInventory();
-                    player.performCommand(getConfig().getString("team-home.command", "team home"));
-                }
-                return;
-            }
             if (slotIndex >= 12 && slotIndex <= 16) {
                 int slot = slotIndex - 11;
                 if (playerHomes(player).containsKey(slot)) teleportHome(player, slot); else createHome(player, slot);
