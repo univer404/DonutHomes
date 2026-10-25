@@ -1,6 +1,6 @@
-name: DonutHomes
+name: SupaHomes
 version: 1.0.0
-main: com.donuthomes.DonutHomes
+main: com.supahomes.SupaHomes
 api-version: '1.21'
 description: Donut-style homes with GUI, permissions, YAML persistence, and cancellable teleport countdowns.
 author: univer404
@@ -10,45 +10,45 @@ commands:
     description: Open your homes menu or teleport to a home.
     usage: /home [1-5|set|delete <slot>]
     aliases: [homesmenu]
-    permission: donuthomes.use
+    permission: supahomes.use
   homes:
     description: Open your homes menu.
     usage: /homes
-    permission: donuthomes.use
+    permission: supahomes.use
   sethome:
     description: Create a home.
     usage: /sethome [1-5]
-    permission: donuthomes.sethome
+    permission: supahomes.sethome
   delhome:
     description: Delete a home after confirmation.
     usage: /delhome <1-5>
-    permission: donuthomes.delete
-  donuthomes:
-    description: DonutHomes administration.
-    usage: /donuthomes reload
-    permission: donuthomes.admin
+    permission: supahomes.delete
+  supahomes:
+    description: SupaHomes administration.
+    usage: /supahomes reload
+    permission: supahomes.admin
 permissions:
-  donuthomes.use:
+  supahomes.use:
     default: true
-  donuthomes.sethome:
+  supahomes.sethome:
     default: true
-  donuthomes.delete:
+  supahomes.delete:
     default: true
-  donuthomes.limit.1:
+  supahomes.limit.1:
     default: false
-  donuthomes.limit.2:
+  supahomes.limit.2:
     default: false
-  donuthomes.limit.3:
+  supahomes.limit.3:
     default: false
-  donuthomes.limit.4:
+  supahomes.limit.4:
     default: false
-  donuthomes.limit.5:
+  supahomes.limit.5:
     default: false
   homes.default:
     default: false
   homes.donutplus:
     default: false
-  donuthomes.teamhome:
+  supahomes.teamhome:
     default: false
-  donuthomes.admin:
+  supahomes.admin:
     default: op
