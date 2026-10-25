@@ -1,6 +1,8 @@
 package com.supahomes;
 
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -30,6 +32,11 @@ import java.util.*;
 
 public final class SupaHomes extends JavaPlugin implements Listener {
     private final MiniMessage mini = MiniMessage.miniMessage();
+
+    // Disable Minecraft's default italic styling without changing the text itself.
+    private Component styled(String text) {
+        return mini.deserialize(text).decoration(TextDecoration.ITALIC, false);
+    }
     private final Map<UUID, Map<Integer, Location>> homes = new HashMap<>();
     private final Map<UUID, Location> teleportOrigins = new HashMap<>();
     private final Map<UUID, BukkitTask> teleportTasks = new HashMap<>();
@@ -109,40 +116,40 @@ public final class SupaHomes extends JavaPlugin implements Listener {
 
     private void message(CommandSender sender, String key) {
         String text = getConfig().getString(key, "<red>Missing message: " + key);
-        sender.sendMessage(mini.deserialize(text));
+        sender.sendMessage(styled(text));
         if (sender instanceof Player player && getConfig().getBoolean("action-bar-messages", true))
-            player.sendActionBar(mini.deserialize(text));
+            player.sendActionBar(styled(text));
     }
 
     private ItemStack item(Material material, String name, String lore) {
         ItemStack stack = new ItemStack(material);
         ItemMeta meta = stack.getItemMeta();
-        meta.displayName(mini.deserialize(name));
-        meta.lore(List.of(mini.deserialize(lore)));
+        meta.displayName(styled(name));
+        meta.lore(List.of(styled(lore)));
         stack.setItemMeta(meta);
         return stack;
     }
 
     private void openHomes(Player player) {
-        Inventory inventory = Bukkit.createInventory(player, 36, mini.deserialize("<#3F3F3F>Homes"));
+        Inventory inventory = Bukkit.createInventory(player, 36, styled("<#3F3F3F>ʜᴏᴍᴇꜱ"));
         Map<Integer, Location> map = playerHomes(player);
         for (int slot = 1; slot <= 5; slot++) {
             int bedSlot = 11 + slot;
             int deleteSlot = 20 + slot;
             if (map.containsKey(slot)) {
-                inventory.setItem(bedSlot, item(Material.LIGHT_BLUE_BED, "<#00A4FC>Home " + slot, "<white>Click to teleport to your home"));
-                inventory.setItem(deleteSlot, item(Material.BLUE_DYE, "<#00A4FC>Home " + slot, "<white>Click to delete this home"));
+                inventory.setItem(bedSlot, item(Material.LIGHT_BLUE_BED, "<#00A4FC>ʜᴏᴍᴇ " + slot, "<white>Click to teleport to your home"));
+                inventory.setItem(deleteSlot, item(Material.BLUE_DYE, "<#00A4FC>ʜᴏᴍᴇ " + slot, "<white>Click to delete this home"));
             } else if (slot <= limit(player)) {
-                inventory.setItem(bedSlot, item(Material.LIGHT_GRAY_BED, "<#CFCFCF>No Home Set", "<white>Click to create a home"));
-                inventory.setItem(deleteSlot, item(Material.GRAY_DYE, "<#CFCFCF>No Home Set", "<white>Click to create a home"));
+                inventory.setItem(bedSlot, item(Material.LIGHT_GRAY_BED, "<#CFCFCF>ɴᴏ ʜᴏᴍᴇ ꜱᴇᴛ", "<white>Click to create a home"));
+                inventory.setItem(deleteSlot, item(Material.GRAY_DYE, "<#CFCFCF>ɴᴏ ʜᴏᴍᴇ ꜱᴇᴛ", "<white>Click to create a home"));
             } else {
-                inventory.setItem(bedSlot, item(Material.RED_BED, "<#FC0000>No Permission", "<white>You need a higher rank for this home"));
-                inventory.setItem(deleteSlot, item(Material.RED_DYE, "<#FC0000>No Permission", "<white>You need a higher rank for this home"));
+                inventory.setItem(bedSlot, item(Material.RED_BED, "<#FC0000>ɴᴏ ᴘᴇʀᴍɪꜱꜱɪᴏɴ", "<white>You need a higher rank for this home"));
+                inventory.setItem(deleteSlot, item(Material.RED_DYE, "<#FC0000>ɴᴏ ᴘᴇʀᴍɪꜱꜱɪᴏɴ", "<white>You need a higher rank for this home"));
             }
         }
         if (getConfig().getBoolean("team-home.enabled", true)) {
-            inventory.setItem(10, item(Material.WHITE_BANNER, "<#00A4FC>ᴛᴇᴀᴍ Home", "<white>Click to run the configured team-home command"));
-            inventory.setItem(19, item(Material.BLUE_DYE, "<#00A4FC>ᴛᴇᴀᴍ Home", "<white>Click to run the configured team-home command"));
+            inventory.setItem(10, item(Material.WHITE_BANNER, "<#00A4FC>ᴛᴇᴀᴍ ʜᴏᴍᴇ", "<white>Click to run the configured team-home command"));
+            inventory.setItem(19, item(Material.BLUE_DYE, "<#00A4FC>ᴛᴇᴀᴍ ʜᴏᴍᴇ", "<white>Click to run the configured team-home command"));
         }
         player.openInventory(inventory);
     }
@@ -153,10 +160,10 @@ public final class SupaHomes extends JavaPlugin implements Listener {
             return;
         }
         pendingDelete.put(player.getUniqueId(), slot);
-        Inventory inventory = Bukkit.createInventory(player, 27, mini.deserialize("<#3F3F3F>Confirm Delete " + slot));
-        inventory.setItem(11, item(Material.RED_STAINED_GLASS_PANE, "<#FC0000>Cancel", "<white>Click to cancel"));
-        inventory.setItem(13, item(Material.BLUE_DYE, "<#00A4FC>Home " + slot, "<white>This home will be deleted"));
-        inventory.setItem(15, item(Material.LIME_STAINED_GLASS_PANE, "<#00FC00>Confirm", "<white>Click to delete"));
+        Inventory inventory = Bukkit.createInventory(player, 27, styled("<#3F3F3F>Confirm Delete " + slot));
+        inventory.setItem(11, item(Material.RED_STAINED_GLASS_PANE, "<#FC0000>ᴄᴀɴᴄᴇʟ", "<white>Click to cancel"));
+        inventory.setItem(13, item(Material.BLUE_DYE, "<#00A4FC>ʜᴏᴍᴇ " + slot, "<white>This home will be deleted"));
+        inventory.setItem(15, item(Material.LIME_STAINED_GLASS_PANE, "<#00FC00>ᴄᴏɴꜰɪʀᴍ", "<white>Click to delete"));
         player.openInventory(inventory);
     }
 
@@ -205,8 +212,8 @@ public final class SupaHomes extends JavaPlugin implements Listener {
                 }
                 String text = getConfig().getString("messages.teleport-countdown", "<gray>Teleporting in <aqua>%seconds% <gray>seconds")
                         .replace("%seconds%", Integer.toString(remaining));
-                player.sendMessage(mini.deserialize(text));
-                player.sendActionBar(mini.deserialize(text));
+                player.sendMessage(styled(text));
+                player.sendActionBar(styled(text));
                 remaining--;
             }
         }, 0L, 20L);
@@ -272,7 +279,7 @@ public final class SupaHomes extends JavaPlugin implements Listener {
     @EventHandler public void onInventoryClick(InventoryClickEvent event) {
         if (!(event.getWhoClicked() instanceof Player player)) return;
         String title = PlainTextComponentSerializer.plainText().serialize(event.getView().title());
-        if (title.equals("Homes")) {
+        if (title.equals("ʜᴏᴍᴇꜱ")) {
             event.setCancelled(true);
             if (event.getClickedInventory() != event.getView().getTopInventory()) return;
             int slotIndex = event.getRawSlot();
@@ -310,8 +317,8 @@ public final class SupaHomes extends JavaPlugin implements Listener {
         if (from.getBlockX() != to.getBlockX() || from.getBlockY() != to.getBlockY() || from.getBlockZ() != to.getBlockZ()) {
             cancelTeleport(player);
             String text = getConfig().getString("messages.teleport-cancelled", "<red>Teleport cancelled because you moved.");
-            player.sendMessage(mini.deserialize(text));
-            player.sendActionBar(mini.deserialize(text));
+            player.sendMessage(styled(text));
+            player.sendActionBar(styled(text));
         }
     }
 
