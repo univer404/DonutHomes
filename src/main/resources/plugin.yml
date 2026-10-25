@@ -2,7 +2,7 @@ name: SupaHomes
 version: 1.0.0
 main: com.supahomes.SupaHomes
 api-version: '1.21'
-description: Donut-style homes with GUI, permissions, YAML persistence, and cancellable teleport countdowns.
+description: SupaHomes with GUI, permissions, YAML persistence, and cancellable teleport countdowns.
 author: univer404
 softdepend: [SuperTeams, Teams]
 commands:
@@ -46,7 +46,7 @@ permissions:
     default: false
   homes.default:
     default: false
-  homes.donutplus:
+  homes.supaplus:
     default: false
   supahomes.teamhome:
     default: false
