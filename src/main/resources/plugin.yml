@@ -1,0 +1,54 @@
+name: DonutHomes
+version: 1.0.0
+main: com.donuthomes.DonutHomes
+api-version: '1.21'
+description: Donut-style homes with GUI, permissions, YAML persistence, and cancellable teleport countdowns.
+author: univer404
+softdepend: [SuperTeams, Teams]
+commands:
+  home:
+    description: Open your homes menu or teleport to a home.
+    usage: /home [1-5|set|delete <slot>]
+    aliases: [homesmenu]
+    permission: donuthomes.use
+  homes:
+    description: Open your homes menu.
+    usage: /homes
+    permission: donuthomes.use
+  sethome:
+    description: Create a home.
+    usage: /sethome [1-5]
+    permission: donuthomes.sethome
+  delhome:
+    description: Delete a home after confirmation.
+    usage: /delhome <1-5>
+    permission: donuthomes.delete
+  donuthomes:
+    description: DonutHomes administration.
+    usage: /donuthomes reload
+    permission: donuthomes.admin
+permissions:
+  donuthomes.use:
+    default: true
+  donuthomes.sethome:
+    default: true
+  donuthomes.delete:
+    default: true
+  donuthomes.limit.1:
+    default: false
+  donuthomes.limit.2:
+    default: false
+  donuthomes.limit.3:
+    default: false
+  donuthomes.limit.4:
+    default: false
+  donuthomes.limit.5:
+    default: false
+  homes.default:
+    default: false
+  homes.donutplus:
+    default: false
+  donuthomes.teamhome:
+    default: false
+  donuthomes.admin:
+    default: op
