@@ -4,7 +4,6 @@ main: com.supahomes.SupaHomes
 api-version: '1.21'
 description: SupaHomes with GUI, permissions, YAML persistence, and cancellable teleport countdowns.
 author: univer404
-softdepend: [SuperTeams, Teams]
 commands:
   home:
     description: Open your homes menu or teleport to a home.
@@ -47,8 +46,6 @@ permissions:
   homes.default:
     default: false
   homes.supaplus:
-    default: false
-  supahomes.teamhome:
     default: false
   supahomes.admin:
     default: op
