@@ -124,25 +124,25 @@ public final class SupaHomes extends JavaPlugin implements Listener {
     }
 
     private void openHomes(Player player) {
-        Inventory inventory = Bukkit.createInventory(player, 36, mini.deserialize("<#3F3F3F>ʜᴏᴍᴇꜱ"));
+        Inventory inventory = Bukkit.createInventory(player, 36, mini.deserialize("<#3F3F3F>Homes"));
         Map<Integer, Location> map = playerHomes(player);
         for (int slot = 1; slot <= 5; slot++) {
             int bedSlot = 11 + slot;
             int deleteSlot = 20 + slot;
             if (map.containsKey(slot)) {
-                inventory.setItem(bedSlot, item(Material.LIGHT_BLUE_BED, "<#00A4FC>ʜᴏᴍᴇ " + slot, "<white>Click to teleport to your home"));
-                inventory.setItem(deleteSlot, item(Material.BLUE_DYE, "<#00A4FC>ʜᴏᴍᴇ " + slot, "<white>Click to delete this home"));
+                inventory.setItem(bedSlot, item(Material.LIGHT_BLUE_BED, "<#00A4FC>Home " + slot, "<white>Click to teleport to your home"));
+                inventory.setItem(deleteSlot, item(Material.BLUE_DYE, "<#00A4FC>Home " + slot, "<white>Click to delete this home"));
             } else if (slot <= limit(player)) {
-                inventory.setItem(bedSlot, item(Material.LIGHT_GRAY_BED, "<#CFCFCF>ɴᴏ ʜᴏᴍᴇ ꜱᴇᴛ", "<white>Click to create a home"));
-                inventory.setItem(deleteSlot, item(Material.GRAY_DYE, "<#CFCFCF>ɴᴏ ʜᴏᴍᴇ ꜱᴇᴛ", "<white>Click to create a home"));
+                inventory.setItem(bedSlot, item(Material.LIGHT_GRAY_BED, "<#CFCFCF>No Home Set", "<white>Click to create a home"));
+                inventory.setItem(deleteSlot, item(Material.GRAY_DYE, "<#CFCFCF>No Home Set", "<white>Click to create a home"));
             } else {
-                inventory.setItem(bedSlot, item(Material.RED_BED, "<#FC0000>ɴᴏ ᴘᴇʀᴍɪꜱꜱɪᴏɴ", "<white>You need a higher rank for this home"));
-                inventory.setItem(deleteSlot, item(Material.RED_DYE, "<#FC0000>ɴᴏ ᴘᴇʀᴍɪꜱꜱɪᴏɴ", "<white>You need a higher rank for this home"));
+                inventory.setItem(bedSlot, item(Material.RED_BED, "<#FC0000>No Permission", "<white>You need a higher rank for this home"));
+                inventory.setItem(deleteSlot, item(Material.RED_DYE, "<#FC0000>No Permission", "<white>You need a higher rank for this home"));
             }
         }
         if (getConfig().getBoolean("team-home.enabled", true)) {
-            inventory.setItem(10, item(Material.WHITE_BANNER, "<#00A4FC>ᴛᴇᴀᴍ ʜᴏᴍᴇ", "<white>Click to run the configured team-home command"));
-            inventory.setItem(19, item(Material.BLUE_DYE, "<#00A4FC>ᴛᴇᴀᴍ ʜᴏᴍᴇ", "<white>Click to run the configured team-home command"));
+            inventory.setItem(10, item(Material.WHITE_BANNER, "<#00A4FC>ᴛᴇᴀᴍ Home", "<white>Click to run the configured team-home command"));
+            inventory.setItem(19, item(Material.BLUE_DYE, "<#00A4FC>ᴛᴇᴀᴍ Home", "<white>Click to run the configured team-home command"));
         }
         player.openInventory(inventory);
     }
@@ -154,9 +154,9 @@ public final class SupaHomes extends JavaPlugin implements Listener {
         }
         pendingDelete.put(player.getUniqueId(), slot);
         Inventory inventory = Bukkit.createInventory(player, 27, mini.deserialize("<#3F3F3F>Confirm Delete " + slot));
-        inventory.setItem(11, item(Material.RED_STAINED_GLASS_PANE, "<#FC0000>ᴄᴀɴᴄᴇʟ", "<white>Click to cancel"));
-        inventory.setItem(13, item(Material.BLUE_DYE, "<#00A4FC>ʜᴏᴍᴇ " + slot, "<white>This home will be deleted"));
-        inventory.setItem(15, item(Material.LIME_STAINED_GLASS_PANE, "<#00FC00>ᴄᴏɴꜰɪʀᴍ", "<white>Click to delete"));
+        inventory.setItem(11, item(Material.RED_STAINED_GLASS_PANE, "<#FC0000>Cancel", "<white>Click to cancel"));
+        inventory.setItem(13, item(Material.BLUE_DYE, "<#00A4FC>Home " + slot, "<white>This home will be deleted"));
+        inventory.setItem(15, item(Material.LIME_STAINED_GLASS_PANE, "<#00FC00>Confirm", "<white>Click to delete"));
         player.openInventory(inventory);
     }
 
@@ -272,7 +272,7 @@ public final class SupaHomes extends JavaPlugin implements Listener {
     @EventHandler public void onInventoryClick(InventoryClickEvent event) {
         if (!(event.getWhoClicked() instanceof Player player)) return;
         String title = PlainTextComponentSerializer.plainText().serialize(event.getView().title());
-        if (title.equals("ʜᴏᴍᴇꜱ")) {
+        if (title.equals("Homes")) {
             event.setCancelled(true);
             if (event.getClickedInventory() != event.getView().getTopInventory()) return;
             int slotIndex = event.getRawSlot();
