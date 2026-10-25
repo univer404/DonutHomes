@@ -1,4 +1,4 @@
-# DonutHomes configuration. MiniMessage formatting supports RGB/HEX colors.
+# SupaHomes configuration. MiniMessage formatting supports RGB/HEX colors.
 action-bar-messages: true
 teleport-delay-seconds: 5
 homes:
