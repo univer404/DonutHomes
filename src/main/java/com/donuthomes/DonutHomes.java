@@ -1,6 +1,7 @@
 package com.donuthomes;
 
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -270,8 +271,8 @@ public final class DonutHomes extends JavaPlugin implements Listener {
 
     @EventHandler public void onInventoryClick(InventoryClickEvent event) {
         if (!(event.getWhoClicked() instanceof Player player)) return;
-        String title = mini.serialize(event.getView().title());
-        if (title.equals("<#3F3F3F>ʜᴏᴍᴇꜱ")) {
+        String title = PlainTextComponentSerializer.plainText().serialize(event.getView().title());
+        if (title.equals("ʜᴏᴍᴇꜱ")) {
             event.setCancelled(true);
             if (event.getClickedInventory() != event.getView().getTopInventory()) return;
             int slotIndex = event.getRawSlot();
@@ -289,7 +290,7 @@ public final class DonutHomes extends JavaPlugin implements Listener {
                 int slot = slotIndex - 20;
                 if (playerHomes(player).containsKey(slot)) openDelete(player, slot); else createHome(player, slot);
             }
-        } else if (title.startsWith("<#3F3F3F>Confirm Delete ")) {
+        } else if (title.startsWith("Confirm Delete ")) {
             event.setCancelled(true);
             if (event.getClickedInventory() != event.getView().getTopInventory()) return;
             if (event.getRawSlot() == 15) {
