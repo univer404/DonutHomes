@@ -1,0 +1,31 @@
+# DonutHomes configuration. MiniMessage formatting supports RGB/HEX colors.
+action-bar-messages: true
+teleport-delay-seconds: 5
+homes:
+  default-limit: 2
+blocked-worlds:
+  - spawn
+  - afk
+  - arena_rtpportal
+  - arena_badlands
+  - arena_desert
+  - arena_flat
+  - arena_plains
+team-home:
+  enabled: true
+  command: "team home"
+messages:
+  no-permission: "<red>You do not have permission."
+  limit: "<red>You reached home limits."
+  blocked-world: "<red>You cannot set homes in this world."
+  home-set: "<#A7A7A7>Home set"
+  home-deleted: "<#A7A7A7>Home deleted"
+  no-home: "<red>You do not have a home in that slot."
+  teleport-start: "<#A7A7A7>Teleporting shortly. Do not move."
+  teleport-countdown: "<#A7A7A7>Teleporting in <#37BFF8>%seconds% <#A7A7A7>seconds"
+  teleport-success: "<#A7A7A7>You teleported to your home"
+  teleport-cancelled: "<#FB5454>Teleport cancelled because you moved."
+  invalid-slot: "<red>Choose a home slot from 1 to 5."
+  usage-home: "<red>Usage: /home [1-5|set|delete <slot>]"
+  usage-delhome: "<red>Usage: /delhome <1-5>"
+  reloaded: "<green>Configuration reloaded."
