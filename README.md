@@ -30,7 +30,7 @@ A Paper/Purpur homes plugin converted from the supplied SupaHomes Skript.
 - `supahomes.use`, `supahomes.sethome`, `supahomes.delete`: default true.
 - `supahomes.limit.3` through `supahomes.limit.5`: unlock higher slots.
 - `homes.default`: ensures at least two slots.
-- `homes.donutplus`: unlocks all five slots.
+- `homes.supaplus`: unlocks all five slots.
 - `supahomes.admin`: operator by default.
 
 ## Build
