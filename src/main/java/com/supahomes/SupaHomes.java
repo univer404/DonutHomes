@@ -134,8 +134,8 @@ public final class SupaHomes extends JavaPlugin implements Listener {
         Inventory inventory = Bukkit.createInventory(player, 36, styled("<#3F3F3F>ʜᴏᴍᴇꜱ"));
         Map<Integer, Location> map = playerHomes(player);
         for (int slot = 1; slot <= 5; slot++) {
-            int bedSlot = 11 + slot;
-            int deleteSlot = 20 + slot;
+            int bedSlot = 10 + slot; // Center the five home beds in the row (slots 11-15).
+            int deleteSlot = 19 + slot; // Center the five delete buttons in the row (slots 20-24).
             if (map.containsKey(slot)) {
                 inventory.setItem(bedSlot, item(Material.LIGHT_BLUE_BED, "<#00A4FC>ʜᴏᴍᴇ " + slot, "<white>Click to teleport to your home"));
                 inventory.setItem(deleteSlot, item(Material.BLUE_DYE, "<#00A4FC>ʜᴏᴍᴇ " + slot, "<white>Click to delete this home"));
@@ -279,11 +279,11 @@ public final class SupaHomes extends JavaPlugin implements Listener {
             event.setCancelled(true);
             if (event.getClickedInventory() != event.getView().getTopInventory()) return;
             int slotIndex = event.getRawSlot();
-            if (slotIndex >= 12 && slotIndex <= 16) {
-                int slot = slotIndex - 11;
+            if (slotIndex >= 11 && slotIndex <= 15) {
+                int slot = slotIndex - 10;
                 if (playerHomes(player).containsKey(slot)) teleportHome(player, slot); else createHome(player, slot);
-            } else if (slotIndex >= 21 && slotIndex <= 25) {
-                int slot = slotIndex - 20;
+            } else if (slotIndex >= 20 && slotIndex <= 24) {
+                int slot = slotIndex - 19;
                 if (playerHomes(player).containsKey(slot)) openDelete(player, slot); else createHome(player, slot);
             }
         } else if (title.startsWith("Confirm Delete ")) {
