@@ -11,9 +11,6 @@ blocked-worlds:
   - arena_desert
   - arena_flat
   - arena_plains
-team-home:
-  enabled: true
-  command: "team home"
 messages:
   no-permission: "<red>You do not have permission."
   limit: "<red>You reached home limits."
